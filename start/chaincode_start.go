@@ -90,7 +90,9 @@ func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byt
 	preAuth1 := preAuthForm{"PA001", "Submitted", "John Smith", "XYZ Capitol avenue NY", "22322", "112-223-22222", "112-223-22223", "Susan Smith", "Johnson", "MNM11231122", "02-22-1986", "04-02-2016"}
 	theJSON1, _ := json.Marshal(preAuth1)
 	err := stub.PutState("PA001", theJSON1)
-	fmt.Println("%+v\n", string(theJSON1))
+
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+
 	if err != nil {
 		return nil, err
 	}
@@ -98,34 +100,35 @@ func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byt
 	preAuth1 = preAuthForm{"PA002", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22321", "112-223-33333", "112-223-33334", "Susan Smith", "Jim", "MNM11231124", "02-22-1986", "04-02-2016"}
 	theJSON2, _ := json.Marshal(preAuth1)
 	err = stub.PutState("PA002", theJSON2)
-	fmt.Println("%+v\n", string(theJSON2))
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
 
 	preAuth1 = preAuthForm{"PA003", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22323", "112-223-33333", "112-223-33334", "Susan Smith", "Robert", "MNM11231125", "02-22-1986", "04-02-2016"}
 	theJSON3, _ := json.Marshal(preAuth1)
 	err = stub.PutState("PA003", theJSON3)
-	fmt.Println("%+v\n", string(theJSON3))
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
 
 	preAuth1 = preAuthForm{"PA004", "Submitted", "Tad Harison", "ABC Capitol avenue NY", "22323", "112-223-33344", "112-223-33345", "Robert Smith", "Kim", "MNM11231126", "02-22-1986", "04-02-2016"}
 	theJSON4, _ := json.Marshal(preAuth1)
 	err = stub.PutState("PA004", theJSON4)
-	fmt.Println("%+v\n", string(theJSON4))
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
 
 	preAuth1 = preAuthForm{"PA005", "Submitted", "Albert", "ABC Capitol avenue NY", "22323", "112-223-33355", "112-223-33356", "Robert Smith", "Rose", "MNM11231127", "02-22-1986", "04-02-2016"}
 	theJSON5, _ := json.Marshal(preAuth1)
 	err = stub.PutState("PA005", theJSON5)
-	fmt.Println("%+v\n", string(theJSON5))
 	if err != nil {
 		return nil, err
 	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
 
 	return nil, nil
 }
