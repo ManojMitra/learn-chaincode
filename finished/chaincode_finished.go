@@ -83,6 +83,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 	}
 
 	key := "PT" + strconv.Itoa(rand.Intn(10000000))
+	fmt.Println("Key is: " + key)
 
 	pt := Patient{args[0], args[1], args[2], args[3]}
 
