@@ -20,8 +20,6 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"math/rand"
-	"strconv"
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
 )
@@ -30,15 +28,43 @@ import (
 type SimpleChaincode struct {
 }
 
-// Patient structure
-type Patient struct {
-	Name     string `json:"name"`
-	MemberID string `json:"memberid"`
-	DOB      string `json:"dob"`
-	DOR      string `json:"dor"`
-}
+// Pre Auth form structure
+type preAuthForm struct {
+	preAuthID     string `json:"preAuthID"`
+	preAuthStatus string `json:"preAuthStatus"`
 
-var preAuthsMap map[string]Patient
+	providerName          string `json:"providerName"`
+	providerAddr          string `json:"providerAddr"`
+	providerCityZip       string `json:"providerCityZip"`
+	providerPhone         string `json:"providerPhone"`
+	providerFax           string `json:"providerFax"`
+	providerContactPerson string `json:"providerContactPerson"`
+
+	memName string `json:"memName"`
+	memID   string `json:"memID"`
+	memDOB  string `json:"memDOB"`
+	memDOR  string `json:"memDOR"`
+
+	/*srvReq       string `json:"srvReq"`
+	srvDOS       string `json:"srvDOS"`
+	srvDiagnosis string `json:"srvDiagnosis"`
+	srvCptCode   string `json:"srvCptCode"`
+	srvIcdCode   string `json:"srvIcdCode"`
+	srvFacility  string `json:"srvFacility"`
+	srvPhone     string `json:"srvPhone"`
+	srvAddr      string `json:"srvAddr"`
+	srvCityZip   string `json:"srvCityZip"`
+
+	payerLOS         string `json:"payerLOS"`
+	payerProvTIN     string `json:"payerProvTIN"`
+	payerDOS         string `json:"payerDOS"`
+	payerBillTIN     string `json:"payerBillTIN"`
+	payerAmtAuth     string `json:"payerAmtAuth"`
+	payerDiag        string `json:"payerDiag"`
+	payerAllowedProc string `json:"payerAllowedProc"`
+	payerComment     string `json:"payerComment"`
+	payerAddDocReqd  string `json:"payerAddDocReqd"`*/
+}
 
 // ============================================================================================================================
 // Main
@@ -56,6 +82,54 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting 1")
 	}
+	return t.writeDummyRec(stub)
+	//return nil, nil
+}
+
+func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byte, error) {
+	preAuth1 := preAuthForm{"PA001", "Submitted", "John Smith", "XYZ Capitol avenue NY", "22322", "112-223-22222", "112-223-22223", "Susan Smith", "Johnson", "MNM11231122", "02-22-1986", "04-02-2016"}
+	theJSON1, _ := json.Marshal(preAuth1)
+	err := stub.PutState("PA001", theJSON1)
+
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+
+	if err != nil {
+		return nil, err
+	}
+
+	/*preAuth1 = preAuthForm{"PA002", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22321", "112-223-33333", "112-223-33334", "Susan Smith", "Jim", "MNM11231124", "02-22-1986", "04-02-2016"}
+	theJSON2, _ := json.Marshal(preAuth1)
+	err = stub.PutState("PA002", theJSON2)
+	if err != nil {
+		return nil, err
+	}
+
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+
+	preAuth1 = preAuthForm{"PA003", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22323", "112-223-33333", "112-223-33334", "Susan Smith", "Robert", "MNM11231125", "02-22-1986", "04-02-2016"}
+	theJSON3, _ := json.Marshal(preAuth1)
+	err = stub.PutState("PA003", theJSON3)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+
+	preAuth1 = preAuthForm{"PA004", "Submitted", "Tad Harison", "ABC Capitol avenue NY", "22323", "112-223-33344", "112-223-33345", "Robert Smith", "Kim", "MNM11231126", "02-22-1986", "04-02-2016"}
+	theJSON4, _ := json.Marshal(preAuth1)
+	err = stub.PutState("PA004", theJSON4)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+
+	preAuth1 = preAuthForm{"PA005", "Submitted", "Albert", "ABC Capitol avenue NY", "22323", "112-223-33355", "112-223-33356", "Robert Smith", "Rose", "MNM11231127", "02-22-1986", "04-02-2016"}
+	theJSON5, _ := json.Marshal(preAuth1)
+	err = stub.PutState("PA005", theJSON5)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+	*/
 	return nil, nil
 }
 
@@ -82,7 +156,7 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 		return nil, errors.New("Incorrect number of arguments. Expecting 4")
 	}
 
-	key := "PT" + strconv.Itoa(rand.Intn(10000000))
+	/*key := "PT" + strconv.Itoa(rand.Intn(10000000))
 	fmt.Println("Key is: " + key)
 
 	pt := Patient{args[0], args[1], args[2], args[3]}
@@ -95,31 +169,39 @@ func (t *SimpleChaincode) write(stub shim.ChaincodeStubInterface, args []string)
 
 	if err != nil {
 		return nil, err
-	}
+	}*/
 	return nil, nil
 }
 
 func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) ([]byte, error) {
-	fmt.Printf("read called by MM")
-	var name, jsonResp string
+	fmt.Println("read called by MM")
+	var key, jsonResp string
 	var err error
 
 	if len(args) != 1 {
 		return nil, errors.New("Incorrect number of arguments. Expecting name of the var to query")
 	}
 
-	name = args[0]
-	fmt.Println("value received in read is : " + name)
+	key = args[0]
+	fmt.Println("value received in read is : " + key)
 
-	valAsbytes, err := stub.GetState(name)
+	valAsbytes, err := stub.GetState(key)
 	if err != nil {
-		jsonResp = "{\"Error\":\"Failed to get state for " + name + "\"}"
+		jsonResp = "{\"Error\":\"Failed to get state for " + key + "\"}"
 		return nil, errors.New(jsonResp)
 	}
 
-	var p Patient
-	json.Unmarshal(valAsbytes, p)
-	fmt.Printf("%+v\n", p)
+	var p preAuthForm
+	err1 := json.Unmarshal(valAsbytes, &p)
+	if err1 != nil {
+		jsonResp = "{\"Error\":\"Failed to get object }"
+		fmt.Printf("Error starting Simple chaincode: %s", err1)
+		return nil, errors.New(jsonResp)
+	}
+
+	fmt.Println(string(valAsbytes))
+
+	fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
 
 	return valAsbytes, nil
 }
@@ -135,17 +217,4 @@ func (t *SimpleChaincode) Query(stub shim.ChaincodeStubInterface, function strin
 	}
 
 	return nil, errors.New("Received unknown function query: " + function)
-}
-
-//Test
-func (p *Patient) UnmarshalJSON(buf []byte) error {
-	tmp := []interface{}{&p.Name, &p.MemberID, &p.DOB, &p.DOR}
-	wantLen := len(tmp)
-	if err := json.Unmarshal(buf, &tmp); err != nil {
-		return err
-	}
-	if g, e := len(tmp), wantLen; g != e {
-		return fmt.Errorf("wrong number of fields in Notification: %d != %d", g, e)
-	}
-	return nil
 }
