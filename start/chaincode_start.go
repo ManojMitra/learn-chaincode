@@ -118,7 +118,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	}
 
 	var p Patient
-	json.Unmarshal(valAsbytes, &p)
+	json.Unmarshal(valAsbytes, p)
 	fmt.Printf("%+v\n", p)
 
 	return valAsbytes, nil
