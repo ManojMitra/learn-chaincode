@@ -191,17 +191,22 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 		return nil, errors.New(jsonResp)
 	}
 
-	var p preAuthForm
-	err1 := json.Unmarshal(valAsbytes, &p)
-	if err1 != nil {
-		jsonResp = "{\"Error\":\"Failed to get object }"
-		fmt.Printf("Error starting Simple chaincode: %s", err1)
-		return nil, errors.New(jsonResp)
+	if len(valAsbytes) > 0 {
+		var p preAuthForm
+		err1 := json.Unmarshal(valAsbytes, &p)
+		if err1 != nil {
+			jsonResp = "{\"Error\":\"Failed to get object }"
+			fmt.Printf("Error starting Simple chaincode: %s", err1)
+			return nil, errors.New(jsonResp)
+		}
+
+		fmt.Println(string(valAsbytes))
+
+		fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
+
+	} else {
+		fmt.Printf("Response length is 0 : " + string(valAsbytes))
 	}
-
-	fmt.Println(string(valAsbytes))
-
-	fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
 
 	return valAsbytes, nil
 }
