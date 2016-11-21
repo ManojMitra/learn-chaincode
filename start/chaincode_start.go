@@ -200,7 +200,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 			return nil, errors.New(jsonResp)
 		}
 
-		fmt.Println(string(valAsbytes))
+		fmt.Println("valAsbytes length is > 0 " + string(valAsbytes))
 
 		fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
 
