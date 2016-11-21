@@ -192,7 +192,12 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 	}
 
 	var p preAuthForm
-	json.Unmarshal(valAsbytes, &p)
+	err1 := json.Unmarshal(valAsbytes, &p)
+	if err1 != nil {
+		jsonResp = "{\"Error\":\"Failed to get object }"
+		fmt.Printf("Error starting Simple chaincode: %s", err1)
+		return nil, errors.New(jsonResp)
+	}
 
 	fmt.Println(string(valAsbytes))
 
