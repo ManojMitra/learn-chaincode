@@ -193,7 +193,10 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 
 	var p preAuthForm
 	json.Unmarshal(valAsbytes, &p)
-	fmt.Println("%+v\n", p)
+
+	fmt.Println(string(valAsbytes))
+
+	fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
 
 	return valAsbytes, nil
 }
