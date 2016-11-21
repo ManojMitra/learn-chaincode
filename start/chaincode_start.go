@@ -97,7 +97,7 @@ func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byt
 		return nil, err
 	}
 
-	preAuth1 = preAuthForm{"PA002", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22321", "112-223-33333", "112-223-33334", "Susan Smith", "Jim", "MNM11231124", "02-22-1986", "04-02-2016"}
+	/*preAuth1 = preAuthForm{"PA002", "Submitted", "Steven Foss", "ABC Capitol avenue NY", "22321", "112-223-33333", "112-223-33334", "Susan Smith", "Jim", "MNM11231124", "02-22-1986", "04-02-2016"}
 	theJSON2, _ := json.Marshal(preAuth1)
 	err = stub.PutState("PA002", theJSON2)
 	if err != nil {
@@ -129,7 +129,7 @@ func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byt
 		return nil, err
 	}
 	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
-
+	*/
 	return nil, nil
 }
 
