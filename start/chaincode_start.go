@@ -30,20 +30,20 @@ type SimpleChaincode struct {
 
 // Pre Auth form structure
 type preAuthForm struct {
-	preAuthID     string `json:"preAuthID"`
-	preAuthStatus string `json:"preAuthStatus"`
+	PreAuthID     string `json:"preauthid"`
+	PreAuthStatus string `json:"preauthstatus"`
 
-	providerName          string `json:"providerName"`
-	providerAddr          string `json:"providerAddr"`
-	providerCityZip       string `json:"providerCityZip"`
-	providerPhone         string `json:"providerPhone"`
-	providerFax           string `json:"providerFax"`
-	providerContactPerson string `json:"providerContactPerson"`
+	ProviderName          string `json:"providername"`
+	ProviderAddr          string `json:"provideraddr"`
+	ProviderCityZip       string `json:"providercityzip"`
+	ProviderPhone         string `json:"providerphone"`
+	ProviderFax           string `json:"providerfax"`
+	ProviderContactPerson string `json:"providercontactperson"`
 
-	memName string `json:"memName"`
-	memID   string `json:"memID"`
-	memDOB  string `json:"memDOB"`
-	memDOR  string `json:"memDOR"`
+	MemName string `json:"memname"`
+	MemID   string `json:"memid"`
+	MemDOB  string `json:"memdob"`
+	MemDOR  string `json:"memdor"`
 
 	/*srvReq       string `json:"srvReq"`
 	srvDOS       string `json:"srvDOS"`
@@ -87,11 +87,11 @@ func (t *SimpleChaincode) Init(stub shim.ChaincodeStubInterface, function string
 }
 
 func (t *SimpleChaincode) writeDummyRec(stub shim.ChaincodeStubInterface) ([]byte, error) {
-	preAuth1 := preAuthForm{"PA001", "Submitted", "John Smith", "XYZ Capitol avenue NY", "22322", "112-223-22222", "112-223-22223", "Susan Smith", "Johnson", "MNM11231122", "02-22-1986", "04-02-2016"}
+	preAuth1 := &preAuthForm{"PA001", "Submitted", "John Smith", "XYZ Capitol avenue NY", "22322", "112-223-22222", "112-223-22223", "Susan Smith", "Johnson", "MNM11231122", "02-22-1986", "04-02-2016"}
 	theJSON1, _ := json.Marshal(preAuth1)
 	err := stub.PutState("PA001", theJSON1)
 
-	fmt.Println("Wrote details with: " + preAuth1.preAuthID + " - " + preAuth1.preAuthStatus + " - " + preAuth1.providerName + " - " + preAuth1.providerAddr + " - " + preAuth1.providerCityZip + " - " + preAuth1.providerPhone + " - " + preAuth1.providerFax + " - " + preAuth1.providerContactPerson + " - " + preAuth1.memName + " - " + preAuth1.memID + " - " + preAuth1.memDOB + " - " + preAuth1.memDOR)
+	fmt.Println("Wrote details with: " + preAuth1.PreAuthID + " - " + preAuth1.PreAuthStatus + " - " + preAuth1.ProviderName + " - " + preAuth1.ProviderAddr + " - " + preAuth1.ProviderCityZip + " - " + preAuth1.ProviderPhone + " - " + preAuth1.ProviderFax + " - " + preAuth1.ProviderContactPerson + " - " + preAuth1.MemName + " - " + preAuth1.MemID + " - " + preAuth1.MemDOB + " - " + preAuth1.MemDOR)
 
 	if err != nil {
 		return nil, err
@@ -202,7 +202,7 @@ func (t *SimpleChaincode) read(stub shim.ChaincodeStubInterface, args []string) 
 
 		fmt.Println("valAsbytes length is > 0 " + string(valAsbytes))
 
-		fmt.Println("Reading details of: " + p.preAuthID + " - " + p.preAuthStatus + " - " + p.providerName + " - " + p.providerAddr + " - " + p.providerCityZip + " - " + p.providerPhone + " - " + p.providerFax + " - " + p.providerContactPerson + " - " + p.memName + " - " + p.memID + " - " + p.memDOB + " - " + p.memDOR)
+		fmt.Println("Wrote details with: " + p.PreAuthID + " - " + p.PreAuthStatus + " - " + p.ProviderName + " - " + p.ProviderAddr + " - " + p.ProviderCityZip + " - " + p.ProviderPhone + " - " + p.ProviderFax + " - " + p.ProviderContactPerson + " - " + p.MemName + " - " + p.MemID + " - " + p.MemDOB + " - " + p.MemDOR)
 
 	} else {
 		fmt.Printf("Response length is 0 : " + string(valAsbytes))
